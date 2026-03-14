@@ -1,0 +1,115 @@
+@font-face {
+  font-family: "Fraunces";
+  src: url("/assets/fonts/Fraunces.woff2") format("woff2");
+  font-weight: 300 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  src: url("/assets/fonts/PlusJakartaSans.woff2") format("woff2");
+  font-weight: 300 700;
+  font-display: swap;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Warm saffron/orange + green kirana palette */
+    --background: 0.97 0.01 85;
+    --foreground: 0.18 0.03 45;
+
+    --card: 0.99 0.005 80;
+    --card-foreground: 0.18 0.03 45;
+
+    --popover: 0.99 0.005 80;
+    --popover-foreground: 0.18 0.03 45;
+
+    /* Saffron primary */
+    --primary: 0.65 0.18 55;
+    --primary-foreground: 0.99 0.005 80;
+
+    /* Forest green secondary */
+    --secondary: 0.42 0.12 145;
+    --secondary-foreground: 0.97 0.01 85;
+
+    --muted: 0.93 0.02 80;
+    --muted-foreground: 0.52 0.04 55;
+
+    /* Warm amber accent */
+    --accent: 0.8 0.16 70;
+    --accent-foreground: 0.18 0.03 45;
+
+    --destructive: 0.55 0.2 25;
+    --destructive-foreground: 0.99 0.005 80;
+
+    --border: 0.88 0.03 70;
+    --input: 0.88 0.03 70;
+    --ring: 0.65 0.18 55;
+
+    --radius: 0.75rem;
+
+    --chart-1: 0.65 0.18 55;
+    --chart-2: 0.42 0.12 145;
+    --chart-3: 0.75 0.15 75;
+    --chart-4: 0.55 0.1 180;
+    --chart-5: 0.7 0.12 30;
+
+    --sidebar: 0.99 0.005 80;
+    --sidebar-foreground: 0.18 0.03 45;
+    --sidebar-primary: 0.65 0.18 55;
+    --sidebar-primary-foreground: 0.99 0.005 80;
+    --sidebar-accent: 0.93 0.02 80;
+    --sidebar-accent-foreground: 0.18 0.03 45;
+    --sidebar-border: 0.88 0.03 70;
+    --sidebar-ring: 0.65 0.18 55;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-body;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display;
+  }
+}
+
+/* Indian pattern decorative divider */
+.pattern-divider {
+  background-image: repeating-linear-gradient(
+    90deg,
+    oklch(0.65 0.18 55 / 0.3) 0px,
+    oklch(0.65 0.18 55 / 0.3) 4px,
+    transparent 4px,
+    transparent 16px,
+    oklch(0.42 0.12 145 / 0.3) 16px,
+    oklch(0.42 0.12 145 / 0.3) 20px,
+    transparent 20px,
+    transparent 32px
+  );
+  height: 4px;
+}
+
+.hero-overlay {
+  background: linear-gradient(
+    to right,
+    oklch(0.18 0.03 45 / 0.85) 0%,
+    oklch(0.18 0.03 45 / 0.5) 60%,
+    transparent 100%
+  );
+}
+
+.category-card:hover {
+  transform: translateY(-4px);
+  transition: transform 0.2s ease;
+}
