@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
+import { ArrowLeft, Menu, ShieldCheck, X } from "lucide-react";
 import { useState } from "react";
 
 const navLinks = [
@@ -11,6 +11,12 @@ const navLinks = [
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const isAdmin = window.location.pathname === "/admin";
+
+  const navigateTo = (path: string) => {
+    window.history.pushState({}, "", path);
+    window.dispatchEvent(new PopStateEvent("popstate"));
+  };
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-card/95 backdrop-blur-sm border-b border-border shadow-xs">
@@ -38,16 +44,39 @@ export default function Navbar() {
 
         {/* Desktop nav */}
         <nav className="hidden md:flex items-center gap-1">
-          {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              data-ocid="nav.link"
-              className="px-4 py-2 rounded-md text-sm font-medium text-foreground hover:text-primary hover:bg-accent/20 transition-colors"
+          {!isAdmin &&
+            navLinks.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                data-ocid="nav.link"
+                className="px-4 py-2 rounded-md text-sm font-medium text-foreground hover:text-primary hover:bg-accent/20 transition-colors"
+              >
+                {link.label}
+              </a>
+            ))}
+
+          {isAdmin ? (
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => navigateTo("/")}
+              data-ocid="navbar.admin_link"
+              className="gap-2"
             >
-              {link.label}
-            </a>
-          ))}
+              <ArrowLeft className="h-4 w-4" /> Back to Store
+            </Button>
+          ) : (
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => navigateTo("/admin")}
+              data-ocid="navbar.admin_link"
+              className="ml-2 gap-2"
+            >
+              <ShieldCheck className="h-4 w-4" /> Admin
+            </Button>
+          )}
         </nav>
 
         {/* Mobile toggle */}
@@ -66,17 +95,43 @@ export default function Navbar() {
       {/* Mobile menu */}
       {menuOpen && (
         <nav className="md:hidden bg-card border-t border-border px-4 pb-4">
-          {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              data-ocid="nav.link"
-              className="block py-3 text-sm font-medium text-foreground hover:text-primary transition-colors border-b border-border last:border-0"
-              onClick={() => setMenuOpen(false)}
+          {!isAdmin &&
+            navLinks.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                data-ocid="nav.link"
+                className="block py-3 text-sm font-medium text-foreground hover:text-primary transition-colors border-b border-border last:border-0"
+                onClick={() => setMenuOpen(false)}
+              >
+                {link.label}
+              </a>
+            ))}
+          {isAdmin ? (
+            <button
+              type="button"
+              className="block py-3 text-sm font-medium text-foreground hover:text-primary transition-colors"
+              onClick={() => {
+                navigateTo("/");
+                setMenuOpen(false);
+              }}
+              data-ocid="navbar.admin_link"
             >
-              {link.label}
-            </a>
-          ))}
+              ← Back to Store
+            </button>
+          ) : (
+            <button
+              type="button"
+              className="block py-3 text-sm font-medium text-primary hover:text-primary/80 transition-colors"
+              onClick={() => {
+                navigateTo("/admin");
+                setMenuOpen(false);
+              }}
+              data-ocid="navbar.admin_link"
+            >
+              🔐 Admin Panel
+            </button>
+          )}
         </nav>
       )}
     </header>

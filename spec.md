@@ -1,25 +1,28 @@
 # Swastik Kirana Store
 
 ## Current State
-New project, no existing code.
+A single-page storefront with Navbar, Hero, Categories, Products, About, and Contact sections. The backend has full CRUD for products and categories (addProduct, updateProduct, deleteProduct, getProducts, getCategories, getStoreInfo). No admin panel or authentication exists yet.
 
 ## Requested Changes (Diff)
 
 ### Add
-- Homepage with store name, tagline, and hero section
-- Product categories section (Groceries, Dairy, Snacks, Beverages, Household, etc.)
-- Featured products listing with name, price, and category
-- About Us section with store info
-- Contact section with address, phone, and store hours
-- Simple navigation bar
+- Authorization component for admin login
+- Admin panel page accessible at /admin route
+- Product management UI: list all products, add new product form, edit product inline, delete product
+- Category management: add/remove categories
+- Admin login/logout button in Navbar
 
 ### Modify
-N/A
+- App.tsx: add routing to support /admin route
+- Navbar: add admin login link
+- ProductsSection: fetch products dynamically from backend
 
 ### Remove
-N/A
+- Nothing removed
 
 ## Implementation Plan
-1. Backend: Store data for products, categories, store info (name, address, hours, phone)
-2. Frontend: Homepage with hero, categories grid, featured products, about, and contact sections
-3. Admin view to manage products (add/edit/remove)
+1. Select authorization component
+2. Generate updated backend with authorization guards on write operations
+3. Build frontend admin panel with product/category CRUD
+4. Add routing (react-router or conditional render) for admin page
+5. Wire auth login/logout to Navbar
